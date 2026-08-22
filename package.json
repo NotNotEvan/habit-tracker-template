@@ -10,12 +10,8 @@
     "preview": "vite preview",
     "fmt": "oxfmt",
     "fmt:check": "oxfmt --check",
+    "prepare": "husky",
     "lint-staged": "oxfmt --no-error-on-unmatched-pattern oxlint --fix"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
