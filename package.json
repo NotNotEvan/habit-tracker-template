@@ -12,6 +12,11 @@
     "fmt:check": "oxfmt --check",
     "lint-staged": "oxfmt --no-error-on-unmatched-pattern oxlint --fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "react": "^19.2.8",
@@ -27,6 +32,8 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
     "babel-plugin-react-compiler": "^1.0.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
     "oxfmt": "^0.64.0",
     "oxlint": "^1.75.0",
     "typescript": "~6.0.2",
