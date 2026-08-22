@@ -1,6 +1,6 @@
-import { Header } from "./components/Header"
-import { HabitForm } from "./components/HabitForm"
-import { HabitList } from "./components/HabitList"
+import { Header } from "./components/Header";
+import { HabitForm } from "./components/HabitForm";
+import { HabitList } from "./components/HabitList";
 
 export default function App() {
   return (
@@ -9,5 +9,5 @@ export default function App() {
       <HabitForm />
       <HabitList />
     </div>
-  )
+  );
 }

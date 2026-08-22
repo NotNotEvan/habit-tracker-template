@@ -6,6 +6,8 @@ interface Props {
 
 export function Button({ children }: Props) {
   return (
-    <button className="bg-indigo-600 hover:bg-indigo-500 transition-colors rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed">{children}</button>
-  )
+    <button className="bg-indigo-600 hover:bg-indigo-500 transition-colors rounded px-2 py-1 disabled:opacity-30 disabled:cursor-not-allowed">
+      {children}
+    </button>
+  );
 }
