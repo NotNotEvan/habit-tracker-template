@@ -8,7 +8,7 @@ export function Header() {
         <span className="text-zinc-400 text-sm">1/1 done today</span>
       </div>
       <div className="flex flex-col gap-1">
-        <span>Apr 6 - Apr 12</span>
+        <p>Apr 6 - Apr 12</p>
         <div className="flex items-baseline gap-1">
           <Button>Prev</Button>
           <Button>Next</Button>
