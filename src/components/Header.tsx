@@ -13,7 +13,6 @@ export function Header() {
           <Button>Prev</Button>
           <Button>Next</Button>
         </div>
-        
       </div>
     </header>
   )
