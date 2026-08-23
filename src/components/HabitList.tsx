@@ -1,15 +1,13 @@
 import { format, eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns'
 
-import { Button } from './Button'
+import { Button } from '@/components/Button'
+import type { Habit } from '@/types/habit'
 
-interface Habit {
-  id: string
-  name: string
+interface HabitListProps {
+  habits: Habit[]
 }
 
-export function HabitList() {
-  const habits: Habit[] = [{ id: '1', name: 'this is a new habit' }]
-
+export function HabitList({ habits }: HabitListProps) {
   if (habits.length === 0) {
     return <p className='py-12 text-center text-zinc-500!'>No habits yet.</p>
   }
