@@ -1,4 +1,10 @@
-import { format, eachDayOfInterval, endOfWeek, startOfWeek } from 'date-fns'
+import {
+  format,
+  eachDayOfInterval,
+  endOfWeek,
+  startOfWeek,
+  isSameDay
+} from 'date-fns'
 
 import { Button } from '@/components/Button'
 import type { Habit } from '@/types/habit'
@@ -6,9 +12,10 @@ import type { Habit } from '@/types/habit'
 interface HabitListProps {
   habits: Habit[]
   onDelete: (id: string) => void
+  onToggle: (id: string, date: Date) => void
 }
 
-export function HabitList({ habits, onDelete }: HabitListProps) {
+export function HabitList({ habits, onDelete, onToggle }: HabitListProps) {
   if (habits.length === 0) {
     return <p className='py-12 text-center text-zinc-500!'>No habits yet.</p>
   }
@@ -16,7 +23,12 @@ export function HabitList({ habits, onDelete }: HabitListProps) {
   return (
     <div className='flex flex-col gap-2'>
       {habits.map((habit) => (
-        <HabitItem key={habit.id} habit={habit} onDelete={onDelete} />
+        <HabitItem
+          key={habit.id}
+          habit={habit}
+          onDelete={onDelete}
+          onToggle={onToggle}
+        />
       ))}
     </div>
   )
@@ -25,9 +37,10 @@ export function HabitList({ habits, onDelete }: HabitListProps) {
 interface HabitItemProps {
   habit: Habit
   onDelete: (id: string) => void
+  onToggle: (id: string, date: Date) => void
 }
 
-function HabitItem({ habit, onDelete }: HabitItemProps) {
+function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
   const visibleDates = eachDayOfInterval({
     start: startOfWeek(new Date(), { weekStartsOn: 1 }),
     end: endOfWeek(new Date(), { weekStartsOn: 1 })
@@ -57,6 +70,12 @@ function HabitItem({ habit, onDelete }: HabitItemProps) {
           <Button
             key={date.toISOString()}
             className='flex flex-1 flex-col items-center gap-0.5 rounded-lg text-sm'
+            variant={
+              habit.completions.some((d) => isSameDay(date, d))
+                ? 'primary'
+                : 'secondary'
+            }
+            onClick={() => onToggle(habit.id, date)}
           >
             <span className='font-medium'>{format(date, 'EEE')}</span>
             <span>{format(date, 'd')}</span>
