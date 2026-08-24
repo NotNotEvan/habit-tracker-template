@@ -3,7 +3,8 @@ import {
   eachDayOfInterval,
   endOfWeek,
   startOfWeek,
-  isSameDay
+  isSameDay,
+  isAfter
 } from 'date-fns'
 
 import { Button } from '@/components/Button'
@@ -68,6 +69,7 @@ function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
       <div className='flex gap-2'>
         {visibleDates.map((date) => (
           <Button
+            disabled={isAfter(date, new Date())}
             key={date.toISOString()}
             className='flex flex-1 flex-col items-center gap-0.5 rounded-lg text-sm'
             variant={
