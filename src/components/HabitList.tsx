@@ -1,13 +1,7 @@
-import {
-  format,
-  eachDayOfInterval,
-  endOfWeek,
-  startOfWeek,
-  isSameDay,
-  isAfter
-} from 'date-fns'
+import { format, isSameDay, isAfter } from 'date-fns'
 
 import { Button } from '@/components/Button'
+import { useDate } from '@/hooks/useDate'
 import type { Habit } from '@/types/habit'
 
 interface HabitListProps {
@@ -42,10 +36,7 @@ interface HabitItemProps {
 }
 
 function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
-  const visibleDates = eachDayOfInterval({
-    start: startOfWeek(new Date(), { weekStartsOn: 1 }),
-    end: endOfWeek(new Date(), { weekStartsOn: 1 })
-  })
+  const { visibleDates, today } = useDate()
 
   function handleDelete() {
     onDelete(habit.id)
@@ -69,7 +60,7 @@ function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
       <div className='flex gap-2'>
         {visibleDates.map((date) => (
           <Button
-            disabled={isAfter(date, new Date())}
+            disabled={isAfter(date, today)}
             key={date.toISOString()}
             className='flex flex-1 flex-col items-center gap-0.5 rounded-lg text-sm'
             variant={

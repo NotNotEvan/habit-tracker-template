@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { HabitForm } from '@/components/HabitForm'
 import { HabitList } from '@/components/HabitList'
 import { Header } from '@/components/Header'
+import { DateProvider } from '@/contexts/DateContext'
 import type { Habit } from '@/types/habit'
 
 export default function App() {
@@ -47,14 +48,16 @@ export default function App() {
   }, [habits])
 
   return (
-    <div className='mx-auto flex max-w-2xl flex-col gap-4 p-4'>
-      <Header />
-      <HabitForm onSubmit={addHabit} />
-      <HabitList
-        habits={habits}
-        onDelete={deleteHabit}
-        onToggle={toggleHabit}
-      />
-    </div>
+    <DateProvider>
+      <div className='mx-auto flex max-w-2xl flex-col gap-4 p-4'>
+        <Header />
+        <HabitForm onSubmit={addHabit} />
+        <HabitList
+          habits={habits}
+          onDelete={deleteHabit}
+          onToggle={toggleHabit}
+        />
+      </div>
+    </DateProvider>
   )
 }
