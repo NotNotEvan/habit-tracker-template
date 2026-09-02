@@ -4,8 +4,8 @@ import { createContext, type PropsWithChildren } from 'react'
 interface DateContextType {
   today: Date
   visibleDates: Date[]
-  currentWeekStart: Date
-  currentWeekEnd: Date
+  selectedWeekStart: Date
+  selectedWeekEnd: Date
 }
 
 const DateContext = createContext<DateContextType | null>(null)
@@ -19,8 +19,8 @@ function DateProvider({ children }: PropsWithChildren) {
   const contextValue: DateContextType = {
     today: new Date(),
     visibleDates,
-    currentWeekStart: visibleDates[0],
-    currentWeekEnd: visibleDates[visibleDates.length - 1]
+    selectedWeekStart: visibleDates[0],
+    selectedWeekEnd: visibleDates[visibleDates.length - 1]
   }
 
   return <DateContext value={contextValue}>{children}</DateContext>
