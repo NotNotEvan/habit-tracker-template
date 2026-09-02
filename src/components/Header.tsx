@@ -17,8 +17,8 @@ export function Header() {
           {format(currentWeekEnd, 'LLL do')}
         </p>
         <div className='flex gap-1'>
-          <Button>Prev</Button>
-          <Button>Next</Button>
+          <Button className='flex-1'>Prev</Button>
+          <Button className='flex-1'>Next</Button>
         </div>
       </div>
     </header>
