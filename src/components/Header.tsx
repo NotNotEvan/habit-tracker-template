@@ -4,7 +4,13 @@ import { Button } from '@/components/Button'
 import { useDate } from '@/hooks/useDate'
 
 export function Header() {
-  const { selectedWeekStart, selectedWeekEnd } = useDate()
+  const {
+    selectedWeekStart,
+    selectedWeekEnd,
+    showNextWeek,
+    showPreviousWeek,
+    isCurrentWeek
+  } = useDate()
   return (
     <header className='flex items-center justify-between'>
       <div className='flex flex-col gap-1'>
@@ -17,8 +23,16 @@ export function Header() {
           {format(selectedWeekEnd, 'LLL do')}
         </p>
         <div className='flex gap-1'>
-          <Button className='flex-1'>Prev</Button>
-          <Button className='flex-1'>Next</Button>
+          <Button className='flex-1' onClick={showPreviousWeek}>
+            Prev
+          </Button>
+          <Button
+            className='flex-1'
+            onClick={showNextWeek}
+            disabled={isCurrentWeek}
+          >
+            Next
+          </Button>
         </div>
       </div>
     </header>
