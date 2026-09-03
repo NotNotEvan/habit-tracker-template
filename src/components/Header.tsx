@@ -11,6 +11,7 @@ export function Header() {
     showPreviousWeek,
     isCurrentWeek
   } = useDate()
+
   return (
     <header className='flex items-center justify-between'>
       <div className='flex flex-col gap-1'>
