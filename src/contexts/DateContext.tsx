@@ -45,7 +45,7 @@ function DateProvider({ children }: PropsWithChildren) {
   })
 
   const contextValue: DateContextType = {
-    today: new Date(),
+    today,
     visibleDates,
     selectedWeekStart: visibleDates[0],
     selectedWeekEnd: visibleDates[visibleDates.length - 1],
