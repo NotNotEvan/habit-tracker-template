@@ -1,6 +1,7 @@
 import { isSameDay } from 'date-fns'
 import { createContext, useState, type PropsWithChildren } from 'react'
 
+import { useDate } from '@/hooks/useDate'
 import type { Habit } from '@/types/habit'
 
 interface HabitContextType {
@@ -8,11 +9,16 @@ interface HabitContextType {
   addHabit: (habitName: string) => void
   deleteHabit: (habitId: string) => void
   toggleHabit: (habitId: string, date: Date) => void
+  getDailyStats: () => {
+    totalHabitsCount: number
+    habitsCompletedTodayCount: number
+  }
 }
 
 const HabitContext = createContext<HabitContextType | null>(null)
 
 function HabitProvider({ children }: PropsWithChildren) {
+  const { today } = useDate()
   const [habits, setHabits] = useState<Habit[]>([])
 
   function addHabit(name: string) {
@@ -47,11 +53,31 @@ function HabitProvider({ children }: PropsWithChildren) {
     )
   }
 
+  function getDailyStats(): {
+    totalHabitsCount: number
+    habitsCompletedTodayCount: number
+  } {
+    const todayCompletions = habits.reduce((total, habit) => {
+      return (
+        total +
+        habit.completions.filter((completionDate) =>
+          isSameDay(completionDate, today)
+        ).length
+      )
+    }, 0)
+
+    return {
+      totalHabitsCount: habits.length,
+      habitsCompletedTodayCount: todayCompletions
+    }
+  }
+
   const contextValue: HabitContextType = {
     habits,
     addHabit,
     deleteHabit,
-    toggleHabit
+    toggleHabit,
+    getDailyStats
   }
 
   return <HabitContext value={contextValue}>{children}</HabitContext>

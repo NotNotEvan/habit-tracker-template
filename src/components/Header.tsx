@@ -2,6 +2,7 @@ import { format } from 'date-fns'
 
 import { Button } from '@/components/Button'
 import { useDate } from '@/hooks/useDate'
+import { useHabit } from '@/hooks/useHabit'
 
 export function Header() {
   const {
@@ -11,12 +12,16 @@ export function Header() {
     showPreviousWeek,
     isCurrentWeek
   } = useDate()
+  const { getDailyStats } = useHabit()
+  const { totalHabitsCount, habitsCompletedTodayCount } = getDailyStats()
 
   return (
     <header className='flex items-center justify-between'>
       <div className='flex flex-col gap-1'>
         <h1 className='text-3xl font-bold'>Habit Tracker</h1>
-        <span className='text-sm text-zinc-400'>1/1 done today</span>
+        <span className='text-sm text-zinc-400'>
+          {habitsCompletedTodayCount} / {totalHabitsCount} habits
+        </span>
       </div>
       <div className='flex flex-col gap-1'>
         <p>
