@@ -2,15 +2,12 @@ import { format, isSameDay, isAfter } from 'date-fns'
 
 import { Button } from '@/components/Button'
 import { useDate } from '@/hooks/useDate'
+import { useHabit } from '@/hooks/useHabit'
 import type { Habit } from '@/types/habit'
 
-interface HabitListProps {
-  habits: Habit[]
-  onDelete: (id: string) => void
-  onToggle: (id: string, date: Date) => void
-}
+export function HabitList() {
+  const { habits, deleteHabit, toggleHabit } = useHabit()
 
-export function HabitList({ habits, onDelete, onToggle }: HabitListProps) {
   if (habits.length === 0) {
     return <p className='py-12 text-center text-zinc-500!'>No habits yet.</p>
   }
@@ -21,8 +18,8 @@ export function HabitList({ habits, onDelete, onToggle }: HabitListProps) {
         <HabitItem
           key={habit.id}
           habit={habit}
-          onDelete={onDelete}
-          onToggle={onToggle}
+          onDelete={deleteHabit}
+          onToggle={toggleHabit}
         />
       ))}
     </div>
