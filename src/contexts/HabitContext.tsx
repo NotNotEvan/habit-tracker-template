@@ -1,4 +1,4 @@
-import { isSameDay } from 'date-fns'
+import { isSameDay, subDays } from 'date-fns'
 import { createContext, useState, type PropsWithChildren } from 'react'
 
 import { useDate } from '@/hooks/useDate'
@@ -13,6 +13,7 @@ interface HabitContextType {
     totalHabitsCount: number
     habitsCompletedTodayCount: number
   }
+  getHabitStreak: (completions: Date[]) => number
 }
 
 const HabitContext = createContext<HabitContextType | null>(null)
@@ -72,12 +73,32 @@ function HabitProvider({ children }: PropsWithChildren) {
     }
   }
 
+  function getHabitStreak(completions: Date[]): number {
+    const isCompletedToday = completions.some((date) => isSameDay(date, today))
+
+    // preserve yesterday's streak until today has passed.
+    let currentDate = isCompletedToday ? today : subDays(today, 1)
+    let streak = 0
+
+    while (
+      completions.some((completionDate) =>
+        isSameDay(completionDate, currentDate)
+      )
+    ) {
+      streak += 1
+      currentDate = subDays(currentDate, 1)
+    }
+
+    return streak
+  }
+
   const contextValue: HabitContextType = {
     habits,
     addHabit,
     deleteHabit,
     toggleHabit,
-    getDailyStats
+    getDailyStats,
+    getHabitStreak
   }
 
   return <HabitContext value={contextValue}>{children}</HabitContext>

@@ -34,6 +34,9 @@ interface HabitItemProps {
 
 function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
   const { visibleDates, today } = useDate()
+  const { getHabitStreak } = useHabit()
+
+  const streak = getHabitStreak(habit.completions)
 
   function handleDelete() {
     onDelete(habit.id)
@@ -44,7 +47,7 @@ function HabitItem({ habit, onDelete, onToggle }: HabitItemProps) {
       <div className='mb-3 flex items-center justify-between'>
         <div className='flex items-center gap-3'>
           <span className='font-medium'>{habit.name}</span>
-          <span className='text-sm text-amber-400'>🔥 3</span>
+          <span className='text-sm text-amber-400'>🔥 {streak}</span>
         </div>
         <Button
           variant='ghost-destructive'
