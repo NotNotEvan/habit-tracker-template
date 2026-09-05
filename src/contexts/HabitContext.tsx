@@ -1,7 +1,8 @@
 import { isSameDay, subDays } from 'date-fns'
-import { createContext, useState, type PropsWithChildren } from 'react'
+import { createContext, type PropsWithChildren } from 'react'
 
 import { useDate } from '@/hooks/useDate'
+import { usePersistedHabits } from '@/hooks/usePersistedHabits'
 import type { Habit } from '@/types/habit'
 
 interface HabitContextType {
@@ -20,7 +21,7 @@ const HabitContext = createContext<HabitContextType | null>(null)
 
 function HabitProvider({ children }: PropsWithChildren) {
   const { today } = useDate()
-  const [habits, setHabits] = useState<Habit[]>([])
+  const { habits, setHabits } = usePersistedHabits()
 
   function addHabit(name: string) {
     setHabits((prev) => [
